@@ -1,318 +1,45 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <title>Nycolas</title>
-    <style>
-       @import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
-body,html { margin: 0; height:100vh; }
-canvas { width: 100%; height: 100% }
-
-h1 {
-	position: absolute;
-	bottom: 1em;
-	left: 0;
-	right:0;
-	text-align: center;
-	z-index: 1;
-	font-size: 20px;
-	font-family: Raleway, sans-serif;
-	font-weight: normal;
-}
-a {
-	color: dodgerblue
-}
-    </style>
-  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="css.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nyc e Duda</title>
+  </head>
   <body>
-    <script>
-      import * as THREE from "https://unpkg.com/three@0.125.1/build/three.module.js";
-import { OrbitControls } from "https://unpkg.com/three@0.125.1/examples/jsm/controls/OrbitControls.js";
-import { OutlineEffect } from "https://unpkg.com/three@0.125.1/examples/jsm/effects/OutlineEffect.js";
-import { makeNoise4D } from "https://cdn.skypack.dev/open-simplex-noise";
-const noise4D = makeNoise4D(Date.now());
+    <div id="title" class="slide header">
+  <h1>wow</h1>
+</div>
 
-class Scene {
-	constructor(sketch, settings) {
-		this.sketch = sketch;
-		this.settings = { ...settings };
+<div id="slide1" class="slide">
+  <div class="title">
+    <h1>Slide 1</h1>
+    <p>Lorem ipsum dolor sit amet, in velit iudico mandamus sit, persius dolorum in per, postulant mnesarchum cu nam. Malis movet ornatus id vim, feugait detracto est ea, eam eruditi conceptam in. Ne sit explicari interesset. Labores perpetua cum at. Id viris docendi denique vim.</p>
+  </div>
+  <img class="img2" src="https://img.olhardigital.com.br/wp-content/uploads/2019/09/20190912030622.jpg">
+  <img class="img2" src="https://img.olhardigital.com.br/wp-content/uploads/2019/09/20190912030622.jpg">
+</div>
 
-		this.scene = new THREE.Scene();
-		this.scene.background = new THREE.Color(0xffffff);
-		// this.scene.fog = new THREE.FogExp2(0x222277, 0.2);
-		return this.scene;
-	}
-}
-class Renderer {
-	constructor(sketch, settings) {
-		this.sketch = sketch;
-		this.settings = { ...settings };
-		this.renderer = new THREE.WebGLRenderer({ antialias: true });
-		this.renderer.setSize(this.sketch.sizes.width, this.sketch.sizes.height);
-		this.renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
-		this.renderer.shadowMap.enabled = true;
-		this.renderer.outputEncoding = THREE.sRGBEncoding;
+<div id="slide2" class="slide">
+  <div class="title">
+    <h1>Slide 2</h1>
+    <p>Lorem ipsum dolor sit amet, in velit iudico mandamus sit, persius dolorum in per, postulant mnesarchum cu nam. Malis movet ornatus id vim, feugait detracto est ea, eam eruditi conceptam in. Ne sit explicari interesset. Labores perpetua cum at. Id viris docendi denique vim.</p>
+  </div>
+  <img class="img1" src="https://img.olhardigital.com.br/wp-content/uploads/2019/09/20190912030622.jpg">
+  <img class="img1" src="https://img.olhardigital.com.br/wp-content/uploads/2019/09/20190912030622.jpg"> 
+</div>
 
-		this.renderer.update = this.update.bind(this.sketch);
+<div id="slide3" class="slide">
+  <div class="title">
+    <h1>Slide 3</h1>
+    <p>Lorem ipsum dolor sit amet, in velit iudico mandamus sit, persius dolorum in per, postulant mnesarchum cu nam. Malis movet ornatus id vim, feugait detracto est ea, eam eruditi conceptam in. Ne sit explicari interesset. Labores perpetua cum at. Id viris docendi denique vim.</p>
+  </div>
+  <img class="img2" src="https://img.olhardigital.com.br/wp-content/uploads/2019/09/20190912030622.jpg">
+  <img class="img2" src="https://img.olhardigital.com.br/wp-content/uploads/2019/09/20190912030622.jpg">
+</div>
 
-		return this.renderer;
-	}
-	update() {
-		this.effect.render(this.scene, this.camera);
-	}
-}
-class Camera {
-	constructor(sketch, settings) {
-		this.sketch = sketch;
-		this.settings = { ...settings };
-
-		this.camera = new THREE.PerspectiveCamera(
-			75,
-			this.sketch.sizes.width / this.sketch.sizes.height,
-			0.01,
-			500
-		);
-		this.camera.position.x = -0;
-		this.camera.position.y = 0;
-		this.camera.position.z = 3;
-		this.sketch.scene.add(this.camera);
-
-		return this.camera;
-	}
-}
-class Animator {
-	constructor(sketch, settings) {
-		this.sketch = sketch;
-		this.settings = { ...settings };
-
-		this.tasks = [];
-	}
-	/**
-	 *
-	 * @param {function} fn
-	 */
-	add(fn) {
-		this.tasks.push(fn);
-	}
-	animate() {
-		requestAnimationFrame(this.animate.bind(this));
-
-		this.tasks.forEach((task) => {
-			try {
-				task();
-			} catch (err) {
-				console.warn(err);
-			}
-		});
-
-		this.sketch.renderer.update();
-	}
-}
-class Controls {
-	constructor(sketch, settings) {
-		this.sketch = sketch;
-		this.settings = { ...settings };
-
-		this.controls = new OrbitControls(
-			this.sketch.camera,
-			this.sketch.renderer.domElement
-		);
-
-		return this.controls;
-	}
-}
-class Events {
-	constructor(sketch, settings) {
-		this.sketch = sketch;
-		this.settings = { ...settings };
-
-		this.addEvents();
-	}
-	addEvents() {
-		window.addEventListener("resize", this.onWindowResize.bind(this), false);
-	}
-	onWindowResize() {
-		this.sketch.sizes = {
-			width: window.innerWidth,
-			height: window.innerHeight
-		};
-
-		this.sketch.camera.aspect =
-			this.sketch.sizes.width / this.sketch.sizes.height;
-		this.sketch.camera.updateProjectionMatrix();
-		this.sketch.renderer.setSize(
-			this.sketch.sizes.width,
-			this.sketch.sizes.height
-		);
-		this.sketch.renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
-	}
-}
-class Lights {
-	constructor(sketch, settings) {
-		this.sketch = sketch;
-		this.settings = { ...settings };
-
-		this.ambient();
-		this.directional(3, 5, 3);
-		this.directional(3, 5, -3);
-	}
-	ambient() {
-		let ambLight = new THREE.AmbientLight(0xffffff, 0.2, 100);
-		this.sketch.scene.add(ambLight);
-	}
-	directional(x, y, z) {
-		let dirLight = new THREE.DirectionalLight(0xffffff, 0.6, 100);
-		dirLight.position.set(x, y, z);
-		this.sketch.scene.add(dirLight);
-	}
-}
-
-class Sketch {
-	constructor() {
-		this.sizes = {
-			width: window.innerWidth,
-			height: window.innerHeight
-		};
-		this.scene = new Scene(this);
-		this.renderer = new Renderer(this);
-		this.camera = new Camera(this);
-		this.lights = new Lights(this);
-		this.controls = new Controls(this);
-		this.events = new Events(this);
-		this.animator = new Animator(this);
-		this.clock = new THREE.Clock();
-		this.clock.start();
-
-		this.colorCount = 6;
-		this.groupCount = 128;
-		this.throttle = 0.4;
-		this.angleOfRotation = Math.PI * 5;
-		this.amplitude = 0.75;
-		this.materials = [];
-		this.curves = [];
-		this.geometries = [];
-		this.meshes = [];
-	}
-	init() {
-		this.addObjects();
-		document.body.appendChild(this.renderer.domElement);
-		this.animator.animate();
-	}
-	addObjects() {
-		// createGroup
-		this.basicGroup = new THREE.Group();
-		for (let i = 0; i < this.colorCount; i++) {
-			const angleDeg = (360 / this.colorCount) * i;
-			const angleRad = (angleDeg / 360) * Math.PI * 2;
-			const radius = 0.1;
-
-			const material = new THREE.MeshBasicMaterial({
-				color: `hsl(${angleDeg},60%,50%)`
-			});
-			this.materials.push(material);
-
-			const mesh = new THREE.Object3D();
-			mesh.position.x = Math.cos(angleRad) * radius;
-			mesh.position.z = Math.sin(angleRad) * radius;
-			this.basicGroup.add(mesh);
-		}
-
-		// duplicate and place
-		this.groups = [];
-		for (let i = 0; i < this.groupCount; i++) {
-			const group = this.basicGroup.clone();
-
-			const angleDeg = (360 / this.groupCount) * i;
-			const angleRad = (angleDeg / 360) * Math.PI * 2;
-			const radius = 1;
-
-			//  ROTATION
-			group.rotation.z = angleRad;
-			group.dir = new THREE.Vector3(0, Math.PI, 0);
-			group.dir.normalize();
-
-			// POSITION
-			group.position.x = Math.cos(angleRad) * radius;
-			group.position.y = Math.sin(angleRad) * radius;
-
-			group.currentAngle = 0;
-
-			this.groups.push(group);
-			// scene.add(group);
-		}
-
-		// add tubes
-		this.createGeometries();
-		console.log(this.clock);
-
-		this.animator.add(() => {
-			this.groups.forEach((group) => {
-				let noise = noise4D(
-					group.position.x * this.amplitude,
-					group.position.y * this.amplitude,
-					group.position.z * this.amplitude,
-					this.clock.getElapsedTime()
-				);
-				const targetAngle = noise * this.throttle * this.angleOfRotation;
-				const angleOfMovement = targetAngle - group.currentAngle;
-
-				group.rotateOnAxis(group.dir, angleOfMovement);
-				group.currentAngle = targetAngle;
-			});
-			this.updateGeometries();
-		});
-
-		this.effect = new OutlineEffect(this.renderer);
-	}
-	createGeometries() {
-		for (let i = 0; i < this.colorCount; i++) {
-			// get points
-			const pointArray = [];
-			this.groups.forEach((group) => {
-				const point = group.children[i];
-				pointArray.push(point.getWorldPosition(new THREE.Vector3()));
-			});
-
-			// create curve
-			this.curves.push(new THREE.CatmullRomCurve3(pointArray, true));
-
-			// create geometry
-			this.geometries.push(new THREE.TubeGeometry(this.curves[i], 128, 0.05, 16));
-
-			// mesh
-			this.meshes.push(new THREE.Mesh(this.geometries[i], this.materials[i]));
-
-			this.scene.add(this.meshes[i]);
-		}
-	}
-	updateGeometries() {
-		for (let i = 0; i < this.colorCount; i++) {
-			// get points
-			const pointArray = [];
-			this.groups.forEach((group) => {
-				const point = group.children[i];
-				pointArray.push(point.getWorldPosition(new THREE.Vector3()));
-			});
-
-			// create curve
-			this.curves[i] = new THREE.CatmullRomCurve3(pointArray, true);
-
-			// create geometry
-			this.geometries[i] = new THREE.TubeGeometry(this.curves[i], 128, 0.05, 16);
-
-			// mesh
-			this.meshes[i].geometry = this.geometries[i];
-
-			this.meshes[i].geometry.verticesNeedUpdate = true;
-			this.meshes[i].geometry.dynamic = true;
-		}
-	}
-}
-
-window.sketch = new Sketch();
-sketch.init();
-
-    </script>
-    <h1>Desculpa minha Dudinha, espero que vc possa melhorar o quanto antes</h1><br>
-    <h1>Hoje vou tentar ao máximo fazer vc melhorar, te encher de muitos beijos, q é isso oq vc merece</h1><br>
-    <h1>TINHAMU MINHA MOCINHA</h1>
+<div id="slide4" class="slide header">
+    <h1>The End</h1>
+</div>
   </body>
 </html>
