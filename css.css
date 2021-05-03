@@ -143,12 +143,12 @@ img:last-of-type {
 }
 
 #slide2 {
-  background-image: url("./fotos/3.jpg");;
+  background-image: url("./fotos/3.jpg");
   z-index:2;
 }
 
 #slide3:before {
-  background-image: url("./fotos/4.jpeg");;
+  background-image: url("./fotos/5.jpg");
   transform: translateZ(-1px) scale(2);
 }
 
