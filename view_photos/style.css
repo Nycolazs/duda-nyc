@@ -30,12 +30,12 @@ img {
 }
 
 img:hover {
-    transition: 0.2s;
+    transition: 0.175s;
     transform: scale(1.1)
 }
 
 li:hover{
-  transition: 0.2s;
+  transition: 0.175s;
   transform: scale(1.1)
 }
 
