@@ -26,6 +26,17 @@ img {
   object-fit: cover;
   vertical-align: bottom;
   border-radius: 1vmin;
+  transition: all 175ms cubic-bezier(0, 0, 1, 1);
+}
+
+img:hover {
+    transition: 0.2s;
+    transform: scale(1.1)
+}
+
+li:hover{
+  transition: 0.2s;
+  transform: scale(1.1)
 }
 
 @media (max-aspect-ratio: 1/1) {
