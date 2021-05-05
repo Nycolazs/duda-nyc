@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
 
 html {
@@ -53,8 +54,8 @@ p {
   position: absolute;
   top: 50%;
   left: 73%;
-  width: 320px;
-  height: 320px;
+  width: 400px;
+  height: 400px;
   transform: translateZ(.25px) scale(.75) translateX(-94%) translateY(-100%) rotate(2deg);
   padding: 10px;
   border-radius: 5px;
@@ -66,8 +67,8 @@ p {
   position: absolute;
   top: 50%;
   left: 73%;
-  width: 320px;
-  height: 320px;
+  width: 400px;
+  height: 400px;
   transform: translateZ(.25px) scale(.75) translateX(-94%) translateY(-100%) rotate(2deg);
   padding: 10px;
   border-radius: 5px;
@@ -80,7 +81,7 @@ img:last-of-type {
 }
 
 .slide:before {
-  content: "";
+  content: none;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -95,14 +96,16 @@ img:last-of-type {
   border-radius: 5px;
   background: rgba(240,230,220, .7);
   box-shadow: 0 0 8px rgba(0, 0, 0, .7);
+  transition: all 175ms cubic-bezier(0, 0, 1, 1);
 }
 
 .title1 {
   width: 50%;
-  padding: 2%;
+  padding: 3%;
   border-radius: 5px;
   background: rgba(240,230,220, .7);
   box-shadow: 0 0 8px rgba(0, 0, 0, .7);
+  transition: all 175ms cubic-bezier(0, 0, 1, 1);
 }
 
 .slide:nth-child(2n) .title {
@@ -137,7 +140,7 @@ img:last-of-type {
 
 }
 
-#slide1:before {
+#slide1 {
   background-image: url("./fotos/1.jpg");
   transform: translateZ(-1px) scale(2);
 }
@@ -147,7 +150,7 @@ img:last-of-type {
   z-index:2;
 }
 
-#slide3:before {
+#slide3 {
   background-image: url("./fotos/5.jpg");
   transform: translateZ(-1px) scale(2);
 }
@@ -188,7 +191,7 @@ button.big-button {
    border: 2px solid var(--colorShadeA);
   border-radius: 1em;
   background: var(--colorShadeE);
-transform-style: preserve-3d;
+    transform-style: preserve-3d;
    transition: all 175ms cubic-bezier(0, 0, 1, 1);
 }
 
@@ -197,17 +200,28 @@ button.big-button:hover {
   transform: translate(0, 0.375em);
 }
 
-button.big-button:hover::before {
-  transform: translate3d(0, 0.75em, -1em);
+
+.title:hover {
+  transition: 0.3s;
+  transform: scale(1.1);
 }
 
-button.big-button:active {
-            transform: translate(0em, 0.75em);
+.title1:hover {
+  transition: 0.3s;
+  transform: scale(1.1);
 }
 
-button.big-button:active::before {
-  transform: translate3d(0, 0, -1em);
-  
-      box-shadow: 0 0 0 2px var(--colorShadeB), 0 0.25em 0 0 var(--colorShadeB);
+@keyframes logo-effect {
+	0% {
+		transform: scale(0.5);
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
 
+.name{
+  padding: 15%;
+  animation: logo-effect 1s 0.7s forwards;
 }
