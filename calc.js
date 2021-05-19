@@ -98,7 +98,7 @@ function datediff(date1, date2) {
 
 function calage(){
 	var date = new Date;
-	var curday = date.getDay()+2;
+	var curday = date.getDate();
 	var curmon = date.getMonth()+1;
 	var curyear = date.getFullYear();
 	var calday = 21;
