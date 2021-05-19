@@ -111,7 +111,20 @@ function calage(){
 	var diff =  Date.UTC(curyear,curmon,curday,0,0,0) - Date.UTC(calyear,calmon,calday,0,0,0);
 
 	var dife = datediff(curd,cald);
-	result=dife[1]+" meses e "+dife[2]+" dias";
+	
+	if(dife[0]<=0){
+		if(curday==calday){
+			result = "Parabéns: Aniversário de "+dife[1]+" meses";
+		}else{
+			result=dife[1]+" meses e "+dife[2]+" dias";
+		}
+	}else{
+		if((dife[1]==0)&&(dife[2]==0)){
+			result = "Parabéns: Aniversário de "+dife[0]+" anos";
+		}else{
+			result=dife[0]+" anos, "+dife[1]+" meses e "+dife[2]+" dias";
+		}
+	}
 
 	document.getElementById("vai").innerHTML = result;
 }
