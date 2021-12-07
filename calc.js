@@ -122,7 +122,7 @@ function calage(){
 		if((dife[1]==0)&&(dife[2]==0)){
 			result = "Parabéns: Aniversário de "+dife[0]+" anos";
 		}else{
-			result=dife[0]+" anos, "+dife[1]+" meses e "+dife[2]+" dias";
+			result=dife[0]+" ano, "+dife[1]+" meses e "+dife[2]+" dias";
 		}
 	}
 
